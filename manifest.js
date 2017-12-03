@@ -2,8 +2,9 @@ const packageJson = require('./package.json');
 
 module.exports = {
     version: packageJson.version,
-    init: (pluginContext) => {
-        let policy = require('./policies/user-exists')(pluginContext.settings);
+    init: ({settings}) => {
+        const policy = require('./policies/user-exists')(settings);
+
         pluginContext.registerPolicy(policy)
     },
     policies: ['user-exists'],
