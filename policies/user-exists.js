@@ -1,4 +1,4 @@
-const rp = require('request-promise');
+const request = require('request-promise');
 
 module.exports = ({baseUrl, userExistsPath}) => {
     return {
@@ -10,7 +10,7 @@ module.exports = ({baseUrl, userExistsPath}) => {
                     return next('Cannot verify user');
                 }
 
-                rp({
+                request({
                     method: 'POST',
                     uri: `${baseUrl}/${userExistsPath}`,
                     headers: {
