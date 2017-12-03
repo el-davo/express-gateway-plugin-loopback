@@ -1,0 +1,9 @@
+{
+  "name": "express-gateway-plugin-loopback",
+  "version": "0.0.1",
+  "main": "manifest.js",
+  "license": "MIT",
+  "dependencies": {
+    "request-promise": "^4.2.2"
+  }
+}
