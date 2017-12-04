@@ -7,24 +7,25 @@ module.exports = ({baseUrl, userExistsPath}) => {
             return (req, res, next) => {
 
                 if (!req.get('authorization')) {
-                    return next('Cannot verify user');
+                    return next('unauthorized');
                 }
 
                 request({
-                    method: 'POST',
-                    uri: `${baseUrl}/${userExistsPath}`,
+                    method: 'GET',
+                    uri: `${baseUrl}${userExistsPath}`,
                     headers: {
                         authorization: req.get('authorization')
                     },
                     json: true
                 }).then((body) => {
-                    if (body.userExists) {
+                    if (body.info.user) {
+                        req.user = body.info.user;
                         next();
                     } else {
-                        next('User does not exist');
+                        next('unauthorized');
                     }
-                }).catch((err) => {
-                    next('Cannot verify user');
+                }).catch(() => {
+                    next('unauthorized');
                 });
             };
         }
